@@ -7,7 +7,7 @@ export const Container = styled.div`
     justify-content:space-between;
     align-items:center;
     padding: 0 10px;
-    border-bottom: 1px solid ${props=>props.theme.color.gray};
+    
     `
 export const Profile = styled.div`
     color:${props=>props.theme.color.white};
