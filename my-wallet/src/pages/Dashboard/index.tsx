@@ -1,9 +1,14 @@
 import React from "react"
-
+import {Container} from './styles'
+import ContentHeader from "../../components/ContentHeader"
+import Content from "../../components/Content"
 
 const Dashboard: React.FC = () => {
     return(
-        <div></div>
+        <Container>
+            <ContentHeader/>
+
+        </Container>
     )
 }
 
