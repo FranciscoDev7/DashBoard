@@ -2,7 +2,8 @@ import styled from 'styled-components'
 
 export const Container = styled.div`
     grid-area:MH;
-    background-color: ${props=>props.theme.color.secondary};
+    background-color: ${props=>props.theme.color.primary};
+    border-bottom:1px solid ${props=>props.theme.color.gray};
     display:flex;
     justify-content:space-between;
     align-items:center;

@@ -9,6 +9,7 @@ export const Container = styled.div`
     display:flex;
     justify-content:space-between;  
     margin-bottom:25px;
+    
     `
 
 export const Title = styled.div<ITitleProps>`

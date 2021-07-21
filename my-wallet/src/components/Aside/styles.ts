@@ -5,7 +5,7 @@ export const Container = styled.div`
     grid-area: AS;
     padding-left:20px;
     background-color: ${props=>props.theme.color.secondary};
-    border-right: 1px solid ${props=>props.theme.color.gray};
+    
 `
 export const Title = styled.h3`
     color:${props=>props.theme.color.white};
