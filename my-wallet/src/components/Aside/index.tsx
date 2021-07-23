@@ -11,17 +11,17 @@ const Aside: React.FC = () => {
             <Title>Minha Carteira</Title>
         </Header>
         <MenuContainer>
-           <MenuItemLink href='#'>
+           <MenuItemLink href='/dashboard'>
             <MdDashboard/>
                 DashBoard
             </MenuItemLink>
            
-            <MenuItemLink href='#'>
+            <MenuItemLink href='/list/entries'>
             <MdArrowUpward/>
                 Entradas
             </MenuItemLink>
             
-            <MenuItemLink href='#'>
+            <MenuItemLink href='/list/spendings'>
             <MdArrowDownward/>
                 Saídas
             </MenuItemLink>

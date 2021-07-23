@@ -1,4 +1,4 @@
-import React from "react"
+import React, {useMemo, useState} from "react"
 import ContentHeader from "../../components/ContentHeader"
 import SelectInputs from "../../components/SelectInputs"
 import {Container, Content, Filters} from './styles'
@@ -16,10 +16,32 @@ const year= [
 
 ]
 
-const List: React.FC = () => {
+interface IRoute{
+  match:{
+    params:{
+      type: string
+    }
+  }
+}
+
+const List: React.FC<IRoute>= ({match}) => {
+  const {type } = match.params
+  const [pageType, setPageType] = useState<string>(type)
+   
+
+  console.log(pageType)
+
+  const title = useMemo(()=>{
+      return type === 'entries'? 'Entradas':'Saídas' 
+  },[type])
+
+  const lineColor = useMemo(()=>{
+      return type === 'entries'? '#F7931B':'#E44C4E'
+  }, [type])
+
     return(
         <Container>
-            <ContentHeader  title="Saidas" lineColor="#F7931B">
+            <ContentHeader  title={title} lineColor={lineColor}>
                 <SelectInputs options={month}/>
                 <SelectInputs options={year}/>
             </ContentHeader>
