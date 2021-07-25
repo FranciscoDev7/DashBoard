@@ -41,4 +41,8 @@ export const TextContainer = styled.div`
     flex-direction:column;
     margin-left:10px;
     justify-content:space-between;
+>span{
+    font-family:500;
+    
+}
 `

@@ -22,8 +22,8 @@ const HistoryFinanceCard: React.FC<IHystoryFinanceCard>= ({
         <Container >
             <Tag color={tagColor}/>
             <TextContainer>
-                <span>{title}</span>
-                <small>{date}</small>
+                <h3>{title}</h3>
+                <p>{date}</p>
             </TextContainer>
             <h3>{amount}</h3>
         </Container>
