@@ -9,14 +9,16 @@ import { MenuItemLink } from "../../components/Aside/styles"
 import {formatCurrency,formatDate} from '../../utilities/functions'
 
 const month =[
-    {value:7, label:'julho'},
-    {value:8, label:'agosto'},
-    {value:9, label:'setembro'},
+    {value:7, label:'Julho'},
+    {value:8, label:'Agosto'},
+    {value:9, label:'Setembro'},
 ]
 
 const year= [
     {value:2019, label:2019},
-    {value:2020, label:2020}
+    {value:2020, label:2020},
+    {value:2021, label:2021},
+    {value:2022, label:2022}
 
 ]
 
@@ -29,7 +31,7 @@ interface IRoute{
 }
 
 interface IData{
-  id:number
+  id:string
   desciption:string
   formattedAmount:string
   frequency:string
@@ -40,7 +42,9 @@ interface IData{
 const List: React.FC<IRoute>= ({match}) => {
   
   const[data, setData] = useState<IData[]>([])
- 
+  const[monthSelected, setMonthSelected] = useState<string>(String(new Date().getMonth()+1))
+  const[yearSelected, setYearSelected] = useState<string>(String(new Date().getFullYear()))
+
   const {type } = match.params
    
 
@@ -58,26 +62,43 @@ const List: React.FC<IRoute>= ({match}) => {
 
 
   useEffect(()=>{
-   const response =  listData.map(item=>{
+   const filteredData = listData.filter(item=>{
+     const date = new Date(item.date)
+     const month = String(date.getMonth()+1)
+     const year = String(date.getFullYear())
+
+     return(month===monthSelected && year === yearSelected)
+   })
+
+   const response =  filteredData.map(item=>{
       return{
         desciption:item.description,
         formattedAmount:formatCurrency(Number(item.amount)),
         frequency:item.frequency,
         formattedDate:formatDate(item.date),
         tagColor:item.frequency==='recorrente'?'#4E41F0':'#E44C4E',
-        id:Math.random()*data.length
+        id: String(new Date().getTime()) + item.amount
       }
     })
     setData(response)
    
-  },[])
+  },[listData, monthSelected, yearSelected])
 
 
     return(
         <Container>
             <ContentHeader  title={title} lineColor={lineColor}>
-                <SelectInputs options={month}/>
-                <SelectInputs options={year}/>
+                <SelectInputs 
+                options={month} 
+                onChange={e=>setMonthSelected(e.target.value)}
+                defaultValue={monthSelected}
+                />
+                
+                <SelectInputs 
+                options={year} 
+                onChange={e=>setYearSelected(e.target.value)}
+                defaultValue={yearSelected}
+                />
             </ContentHeader>
             <Filters>
               <button
