@@ -8,19 +8,6 @@ import expenses from "../../repositories/expenses"
 import { MenuItemLink } from "../../components/Aside/styles"
 import {formatCurrency,formatDate} from '../../utilities/functions'
 
-const month =[
-    {value:7, label:'Julho'},
-    {value:8, label:'Agosto'},
-    {value:9, label:'Setembro'},
-]
-
-const year= [
-    {value:2019, label:2019},
-    {value:2020, label:2020},
-    {value:2021, label:2021},
-    {value:2022, label:2022}
-
-]
 
 interface IRoute{
   match:{
@@ -31,7 +18,7 @@ interface IRoute{
 }
 
 interface IData{
-  id:string
+  id:string | number
   desciption:string
   formattedAmount:string
   frequency:string
@@ -60,6 +47,40 @@ const List: React.FC<IRoute>= ({match}) => {
     return type === 'entries'? gains:expenses
 },[type])
 
+  const year = useMemo(()=>{
+    let uniqueYears: number[] = []
+    listData.forEach(item=>{
+      const date = new Date(item.date)
+      const yr = date.getFullYear()
+
+      if (!uniqueYears.includes(yr)){
+        uniqueYears.push(yr)
+      }
+    })
+    return uniqueYears.map(year =>{
+      return{
+        value:year,
+        label:year
+      }
+    })
+  },[])
+  const month = useMemo(()=>{
+    let uniqueMonths: number[] = []
+    listData.forEach(item=>{
+      const date = new Date(item.date)
+      const month = date.getMonth()
+
+      if (!uniqueMonths.includes(month)){
+        uniqueMonths.push(month)
+      }
+    })
+    return uniqueMonths.map(month =>{
+      return{
+        value:month,
+        label:month
+      }
+    })
+  },[])
 
   useEffect(()=>{
    const filteredData = listData.filter(item=>{
@@ -88,13 +109,15 @@ const List: React.FC<IRoute>= ({match}) => {
     return(
         <Container>
             <ContentHeader  title={title} lineColor={lineColor}>
-                <SelectInputs 
+                <SelectInputs
+                
                 options={month} 
                 onChange={e=>setMonthSelected(e.target.value)}
                 defaultValue={monthSelected}
                 />
                 
                 <SelectInputs 
+                
                 options={year} 
                 onChange={e=>setYearSelected(e.target.value)}
                 defaultValue={yearSelected}
